@@ -1,4 +1,4 @@
-package net.protoprint.ttwiitter;
+package net.protoprint.ttwiitter.controller;
 
 import net.protoprint.ttwiitter.domain.Message;
 import net.protoprint.ttwiitter.repos.MessageRepo;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 
 @Controller
-public class GreetingController {
+public class MainController {
     @Autowired
     private MessageRepo messageRepo;
 
