@@ -1,6 +1,5 @@
 package net.protoprint.ttwiitter.controller;
 
-
 import net.protoprint.ttwiitter.domain.Role;
 import net.protoprint.ttwiitter.domain.User;
 import net.protoprint.ttwiitter.repos.UserRepo;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.Collections;
 import java.util.Map;
 
@@ -16,6 +14,7 @@ import java.util.Map;
 public class RegistrationController {
     @Autowired
     private UserRepo userRepo;
+
     @GetMapping("/registration")
     public String registration(){
         return "registration";
