@@ -1,24 +1,24 @@
 package net.protoprint.ttwiitter.domain;
 
-import org.apache.tomcat.jni.Time;
-import org.hibernate.query.criteria.internal.expression.function.CurrentTimeFunction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.security.Timestamp;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 public class Message {
-
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
-    @DateTimeFormat
-    private String time;
 
     private String text;
     private String tag;
+
+    @DateTimeFormat
+    private LocalDateTime timestamp;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User author;
@@ -26,39 +26,16 @@ public class Message {
     public Message() {
     }
 
-    public Message(String text, String tag, User user, String time) {
+    public Message(String text, String tag, User user, LocalDateTime timestamp) {
         this.author = user;
         this.text = text;
         this.tag = tag;
-        this.time = time;
+        this.timestamp = timestamp;
     }
 
-    public String getAuthorName(){
+
+    public String getAuthorName() {
         return author != null ? author.getUsername() : "<none>";
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
     }
 
     public User getAuthor() {
@@ -69,11 +46,35 @@ public class Message {
         this.author = author;
     }
 
-    public String getTime() {
-        return time !=null ? time : "<no time stamp>";
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public void setTime(String time) {
-        this.time = CurrentTimeFunction.NAME;
+    public String getText() {
+        return text;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public LocalTime getTimestamp() {
+        return timestamp !=null ? LocalTime.from(timestamp) : LocalTime.parse("00:00:00");
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = LocalDateTime.from(LocalTime.now());
     }
 }
