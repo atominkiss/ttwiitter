@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Map;
 
 @Controller
@@ -47,10 +45,9 @@ public class MainController {
     public String add(
             @AuthenticationPrincipal User user,
             @RequestParam String text,
-            @RequestParam LocalDateTime timestamp,
             @RequestParam String tag, Map<String, Object> model
     ) {
-        timestamp = LocalDateTime.now();
+        LocalDateTime timestamp = LocalDateTime.now();
         Message message = new Message(text, tag, user, timestamp);
 
         messageRepo.save(message);
