@@ -12,11 +12,11 @@ List of users
     </thead>
     <tbody>
     <#list user as usr>
-        <tr>
-            <td>${usr.username}</td>
-            <td><#list usr.roles as role>${role}<#sep>, </#list></td>
-            <td><a href="/user/${usr.id}">edit</a></td>
-        </tr>
+    <tr>
+        <td>${usr.username}</td>
+        <td><#list usr.roles as role>${role}<#sep>, </#list></td>
+        <td><a href="/user/${usr.id}">edit</a></td>
+    </tr>
     </#list>
     </tbody>
 </table>
