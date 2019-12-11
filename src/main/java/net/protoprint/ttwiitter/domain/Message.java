@@ -1,8 +1,10 @@
 package net.protoprint.ttwiitter.domain;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -13,7 +15,10 @@ public class Message {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Please, fill the message.")
+    @Length(max = 2048, message = "Message too long! More then 2kB")
     private String text;
+    @Length(max = 255, message = "Tag too long! More then 255")
     private String tag;
 
     @DateTimeFormat
