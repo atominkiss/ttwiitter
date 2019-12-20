@@ -8,10 +8,12 @@
         name = user.getUsername()
         <#--isAdmin = user.isAdmin()-->
         isAdmin = user.getAuthorities()?seq_contains('ADMIN')
+        currentUserId = user.getId()
     >
-<#else >
+<#else>
     <#assign
         name = "unknown"
         isAdmin = false
+        currentUserId = -1
     >
 </#if>
