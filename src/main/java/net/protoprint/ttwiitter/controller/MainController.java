@@ -1,5 +1,8 @@
 package net.protoprint.ttwiitter.controller;
 
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import net.protoprint.ttwiitter.domain.Message;
 import net.protoprint.ttwiitter.domain.User;
 import net.protoprint.ttwiitter.repos.MessageRepo;
@@ -24,6 +27,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Controller
+@Slf4j
 public class MainController {
     @Autowired
     private MessageRepo messageRepo;
@@ -37,7 +41,8 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
+    public String main(
+            @RequestParam(required = false, defaultValue = "") String filter, Model model) {
         Iterable<Message> messages;
 
         if (filter != null && !filter.isEmpty()) {
@@ -48,6 +53,8 @@ public class MainController {
 
         model.addAttribute("messages", messages);
         model.addAttribute("filter", filter);
+
+        messages.forEach(msg -> log.debug("Have some message: {}", msg.toString()));
 
         return "main";
     }
@@ -75,7 +82,7 @@ public class MainController {
             messageRepo.save(message);
         }
 
-        Iterable<Message> messages = messageRepo.findAll();
+        val messages = messageRepo.findAll();
 
         model.addAttribute("messages", messages);
 
